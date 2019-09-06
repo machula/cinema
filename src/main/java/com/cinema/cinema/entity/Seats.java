@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "seats")
-public class Seats implements Serializable{
+public class Seats implements Serializable {
 
 	/**
 	 * 
@@ -22,15 +22,15 @@ public class Seats implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
 	private int id;
-		
-	@Column(name ="seat_row")
+
+	@Column(name = "seat_row")
 	private int seatRow;
-	
-	@Column(name ="place_in_row")
+
+	@Column(name = "place_in_row")
 	private int placeInRow;
-	
-	//TODO change default value (now is true)
-	@Column(name ="is_booked")
+
+	// TODO change default value (now is true)
+	@Column(name = "is_booked")
 	private Boolean isBooked;
 
 	public int getId() {
@@ -64,7 +64,5 @@ public class Seats implements Serializable{
 	public void setIsBooked(Boolean isBooked) {
 		this.isBooked = isBooked;
 	}
-	
-	
-	
+
 }

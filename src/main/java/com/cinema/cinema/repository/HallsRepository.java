@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 import com.cinema.cinema.entity.Halls;
 
 @Repository
-public interface HallsRepository extends JpaRepository<Halls, Integer>{
+public interface HallsRepository extends JpaRepository<Halls, Integer> {
 }

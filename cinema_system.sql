@@ -1,15 +1,11 @@
 ﻿--
 -- Скрипт сгенерирован Devart dbForge Studio 2019 for MySQL, Версия 8.1.22.0
 -- Домашняя страница продукта: http://www.devart.com/ru/dbforge/mysql/studio
--- Дата скрипта: 06-Sep-19 02:31:59 PM
+-- Дата скрипта: 06-Sep-19 02:40:25 PM
 -- Версия сервера: 8.0.17
 -- Версия клиента: 4.1
 --
 
--- 
--- Отключение внешних ключей
--- 
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 
 -- 
 -- Установить режим SQL (SQL mode)
@@ -21,35 +17,11 @@
 --
 SET NAMES 'utf8';
 
---
--- Установка базы данных по умолчанию
---
-USE cinema_system;
+DROP DATABASE IF EXISTS cinema_system;
 
---
--- Удалить таблицу `tickets`
---
-DROP TABLE IF EXISTS tickets;
-
---
--- Удалить таблицу `seats`
---
-DROP TABLE IF EXISTS seats;
-
---
--- Удалить таблицу `sessions`
---
-DROP TABLE IF EXISTS sessions;
-
---
--- Удалить таблицу `films`
---
-DROP TABLE IF EXISTS films;
-
---
--- Удалить таблицу `halls`
---
-DROP TABLE IF EXISTS halls;
+CREATE DATABASE IF NOT EXISTS cinema_system
+CHARACTER SET utf8
+COLLATE utf8_general_ci;
 
 --
 -- Установка базы данных по умолчанию
@@ -59,7 +31,7 @@ USE cinema_system;
 --
 -- Создать таблицу `halls`
 --
-CREATE TABLE halls (
+CREATE TABLE IF NOT EXISTS halls (
   ID int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   number decimal(10, 0) NOT NULL,
   max_places int(255) UNSIGNED DEFAULT 0,
@@ -70,8 +42,8 @@ CREATE TABLE halls (
 )
 ENGINE = INNODB,
 AUTO_INCREMENT = 4,
-AVG_ROW_LENGTH = 5461,
-CHARACTER SET utf8mb4,
+CHARACTER SET utf8,
+COLLATE utf8_general_ci,
 COMMENT = 'Залы в кинотеатре';
 
 --
@@ -83,7 +55,7 @@ ADD INDEX FK_halls (max_places);
 --
 -- Создать таблицу `films`
 --
-CREATE TABLE films (
+CREATE TABLE IF NOT EXISTS films (
   ID int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   title varchar(50) DEFAULT NULL,
   standart_price float UNSIGNED DEFAULT NULL,
@@ -93,13 +65,13 @@ CREATE TABLE films (
 )
 ENGINE = INNODB,
 AUTO_INCREMENT = 6,
-AVG_ROW_LENGTH = 4096,
-CHARACTER SET utf8mb4;
+CHARACTER SET utf8,
+COLLATE utf8_general_ci;
 
 --
 -- Создать таблицу `sessions`
 --
-CREATE TABLE sessions (
+CREATE TABLE IF NOT EXISTS sessions (
   ID int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   date date DEFAULT NULL,
   time time DEFAULT NULL,
@@ -113,8 +85,8 @@ CREATE TABLE sessions (
 )
 ENGINE = INNODB,
 AUTO_INCREMENT = 7,
-AVG_ROW_LENGTH = 8192,
-CHARACTER SET utf8mb4;
+CHARACTER SET utf8,
+COLLATE utf8_general_ci;
 
 --
 -- Создать внешний ключ
@@ -133,7 +105,7 @@ REFERENCES halls (ID);
 --
 -- Создать таблицу `seats`
 --
-CREATE TABLE seats (
+CREATE TABLE IF NOT EXISTS seats (
   ID int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   seat_row int(11) UNSIGNED DEFAULT NULL,
   place_in_row int(11) DEFAULT NULL,
@@ -142,13 +114,13 @@ CREATE TABLE seats (
 )
 ENGINE = INNODB,
 AUTO_INCREMENT = 4,
-AVG_ROW_LENGTH = 8192,
-CHARACTER SET utf8mb4;
+CHARACTER SET utf8,
+COLLATE utf8_general_ci;
 
 --
 -- Создать таблицу `tickets`
 --
-CREATE TABLE tickets (
+CREATE TABLE IF NOT EXISTS tickets (
   ID int(11) NOT NULL AUTO_INCREMENT,
   Session int(11) UNSIGNED NOT NULL,
   final_price float DEFAULT NULL,
@@ -157,7 +129,8 @@ CREATE TABLE tickets (
 )
 ENGINE = INNODB,
 AUTO_INCREMENT = 2,
-CHARACTER SET utf8mb4;
+CHARACTER SET utf8,
+COLLATE utf8_general_ci;
 
 --
 -- Создать внешний ключ
@@ -215,8 +188,3 @@ INSERT INTO tickets VALUES
 -- Восстановить предыдущий режим SQL (SQL mode)
 -- 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-
--- 
--- Включение внешних ключей
--- 
-/*!40014 SET FOREIGN_KEY_CHECKS = @OLD_FOREIGN_KEY_CHECKS */;

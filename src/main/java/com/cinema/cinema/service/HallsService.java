@@ -9,17 +9,15 @@ import com.cinema.cinema.repository.HallsRepository;
 
 @Service
 public class HallsService {
-	
+
 	private HallsRepository hallsRepository;
 
 	public HallsService(HallsRepository hallsRepository) {
 		this.hallsRepository = hallsRepository;
 	}
-	
-	public List<Halls> findAll(){
+
+	public List<Halls> findAll() {
 		return hallsRepository.findAll();
 	}
-	
-	
 
 }

@@ -11,20 +11,20 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "tickets")
-public class Tickets implements Serializable{
+public class Tickets implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
 	private int id;
-	
-	//TODO sessions, seats
-	
+
+	// TODO sessions, seats
+
 	@Column(name = "final_price")
 	private Float finalPrice;
 

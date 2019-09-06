@@ -9,10 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
 @Entity
 @Table(name = "halls")
-public class Halls implements Serializable{
+public class Halls implements Serializable {
 
 	/**
 	 * 
@@ -23,22 +22,22 @@ public class Halls implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
 	private int id;
-	
-	@Column (name = "number")
+
+	@Column(name = "number")
 	private int number;
-	
-	@Column (name = "max_places")
+
+	@Column(name = "max_places")
 	private int maxPlaces;
-	
-	@Column (name = "max_vip_places")
+
+	@Column(name = "max_vip_places")
 	private int maxVipPlaces;
-	
-	@Column (name = "rows_number")
+
+	@Column(name = "rows_number")
 	private int rowsNumber;
-	
-	@Column (name = "column_number")
+
+	@Column(name = "column_number")
 	private int columnNumber;
-	
+
 	public int getId() {
 		return id;
 	}
@@ -87,22 +86,4 @@ public class Halls implements Serializable{
 		this.columnNumber = columnNumber;
 	}
 
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

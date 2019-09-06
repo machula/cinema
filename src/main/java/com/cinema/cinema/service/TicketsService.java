@@ -9,17 +9,15 @@ import com.cinema.cinema.repository.TicketsRepository;
 
 @Service
 public class TicketsService {
-	
+
 	private TicketsRepository ticketsRepository;
 
 	public TicketsService(TicketsRepository ticketsRepository) {
 		this.ticketsRepository = ticketsRepository;
 	}
-	
-	public List<Tickets> findAll(){
+
+	public List<Tickets> findAll() {
 		return ticketsRepository.findAll();
 	}
-	
-	
 
 }

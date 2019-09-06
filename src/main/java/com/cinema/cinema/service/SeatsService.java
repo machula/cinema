@@ -9,17 +9,15 @@ import com.cinema.cinema.repository.SeatsRepository;
 
 @Service
 public class SeatsService {
-	
+
 	private SeatsRepository seatsRepository;
 
 	public SeatsService(SeatsRepository seatsRepository) {
 		this.seatsRepository = seatsRepository;
 	}
-	
-	public List<Seats> findAll(){
+
+	public List<Seats> findAll() {
 		return seatsRepository.findAll();
 	}
-	
-	
 
 }

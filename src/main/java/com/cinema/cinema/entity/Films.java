@@ -12,7 +12,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "films")
-public class Films implements Serializable{
+public class Films implements Serializable {
 
 	/**
 	 * 
@@ -55,7 +55,6 @@ public class Films implements Serializable{
 		this.title = title;
 	}
 
-	
 	public Float getStandartPrice() {
 		return standartPrice;
 	}
