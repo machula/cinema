@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Main page</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+	<div class="col-lg-3" th:object="${seans}">
+
+    <select class="form-control" id="testOrder" name="testOrder" >
+        <option value="">Select Session </option>
+        <option th:each="seans : ${allSeans}"
+                th:value="${seans.id}"
+                th:text="${seans.id}+' : '+ ${seans.amountCash}"></option>
+    </select>
+    </div>
+
+</body>
+</html>

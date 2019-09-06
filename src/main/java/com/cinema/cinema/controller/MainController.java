@@ -1,5 +1,6 @@
 package com.cinema.cinema.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.metamodel.Metamodel;
@@ -24,19 +25,26 @@ public class MainController {
 	@Autowired
 	FilmsService filmsService;
 	
+	@Autowired
+	SessionsService sessionsService;
+
 	@GetMapping("/main")
 	public String main(Model model) {
-		
-		//TODO выпадающий список
-//		List<Films> films=  filmsService.findAll();
-//		model.addAttribute("allFilms", films);
-		
+
+		List<Films> test = new ArrayList<>();
+		model.addAttribute("test", test);
+		List<Films> tests = filmsService.findAllToday();
+		model.addAttribute("tests", tests);
+
+		List<Sessions> session = new ArrayList<>();
+		model.addAttribute("seans", session);
+		List<Sessions> sessions = sessionsService.findAll();
+		model.addAttribute("allSeans", sessions);
+
 //		List<Films> list = filmsService.findAll();
 //		for(Films film: list)
 //			System.out.println(film.getTitle());
 		return "main";
 	}
-	
-	
-	
+
 }

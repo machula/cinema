@@ -19,5 +19,10 @@ public class FilmsService {
 	public List<Films> findAll() {
 		return filmsRepository.findAll();
 	}
+	
+	public List<Films> findAllToday() {
+		//TODO date validation
+		return filmsRepository.findAll();
+	}
 
 }

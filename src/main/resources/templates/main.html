@@ -5,13 +5,29 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-	<!--                         падает тут | 
-	<div class="form-group blu-margin">     | 
-	    <select class="form-control" th:field="${films.ID}"  id="dropFilms">
-	    <option value="0">Films for today</option>
-	    <option th:each="films : ${allFilm}" th:value="${films.id}" th:text="${films.title}"></option>
-	    </select>
-	</div>
--->
+
+	<form action="#" method="post">
+<div class="col-lg-3" th:object="${test}">
+
+    <select class="form-control" id="testOrder" name="testOrder" >
+        <option value="">Select Film for Today</option>
+        <option th:each="test : ${tests}"
+                th:value="${test.id}"
+                th:text="${test.id}+' : '+${test.title}"></option>
+    </select>
+</div>
+
+<div class="col-lg-3" th:object="${seans}">
+
+    <select class="form-control" id="testOrder" name="testOrder" >
+        <option value="">Select Session </option>
+        <option th:each="seans : ${allSeans}"
+                th:value="${seans.id}"
+                th:text="${seans.id}+' : '+${seans.time}"></option>
+    </select>
+</div>
+
+</form>
+
 </body>
 </html>
