@@ -27,8 +27,8 @@ public class Films implements Serializable{
 	@Column(name = "Name")
 	private String name;
 
-	/*@Column(name = "StandartPrice")
-	private float standartPrice;*/
+	@Column(name = "StandartPrice")
+	private float standartPrice;
 
 	/*@Column(name = "PremierDate")
 	private String premierDate;*/
@@ -55,14 +55,14 @@ public class Films implements Serializable{
 		this.name = name;
 	}
 
-	/*public float getStandartPrice() {
+	public float getStandartPrice() {
 		return standartPrice;
 	}
 
 	public void setStandartPrice(float standartPrice) {
 		this.standartPrice = standartPrice;
 	}
-*/
+
 	/*public String getPremierDate() {
 		return premierDate;
 	}
@@ -71,6 +71,7 @@ public class Films implements Serializable{
 		this.premierDate = premierDate;
 	}*/
 /*
+ * 
 	public String getEndDate() {
 		return endDate;
 	}
