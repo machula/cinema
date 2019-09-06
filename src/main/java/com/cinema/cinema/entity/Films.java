@@ -55,6 +55,7 @@ public class Films implements Serializable{
 		this.name = name;
 	}
 
+	//m
 	public float getStandartPrice() {
 		return standartPrice;
 	}
