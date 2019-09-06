@@ -5,6 +5,13 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-	Hello ladik
+<!--                             падает тут | 
+	<div class="form-group blu-margin">     | 
+	    <select class="form-control" th:field="${films.ID}"  id="dropFilms">
+	    <option value="0">Films for today</option>
+	    <option th:each="films : ${allFilm}" th:value="${films.id}" th:text="${films.title}"></option>
+	    </select>
+	</div>
+-->
 </body>
 </html>

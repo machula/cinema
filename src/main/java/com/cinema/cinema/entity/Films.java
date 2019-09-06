@@ -24,17 +24,17 @@ public class Films implements Serializable{
 	@Column(name = "ID")
 	private int id;
 
-	@Column(name = "Name")
-	private String name;
+	@Column(name = "title")
+	private String title;
 
 	@Column(name = "standart_price")
 	private Float standartPrice;
 
-	/*@Column(name = "PremierDate")
-	private String premierDate;*/
-/*
-	@Column(name = "EndDate")
-	private String endDate;*/
+	@Column(name = "premier_date")
+	private String premierDate;
+
+	@Column(name = "end_date")
+	private String endDate;
 
 	public Films() {
 	}
@@ -47,12 +47,12 @@ public class Films implements Serializable{
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	
@@ -64,21 +64,20 @@ public class Films implements Serializable{
 		this.standartPrice = standartPrice;
 	}
 
-	/*public String getPremierDate() {
+	public String getPremierDate() {
 		return premierDate;
 	}
 
 	public void setPremierDate(String premierDate) {
 		this.premierDate = premierDate;
-	}*/
-/*
- * 
+	}
+
 	public String getEndDate() {
 		return endDate;
 	}
 
 	public void setEndDate(String endDate) {
 		this.endDate = endDate;
-	}*/
+	}
 
 }
