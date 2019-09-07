@@ -45,7 +45,7 @@ public class Halls implements Serializable {
 	private int columnNumber;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "ID", referencedColumnName = "Hall")
+	@JoinColumn(name = "ID")
 	private List<Sessions> listSessions = new ArrayList<Sessions>();
 
 	public List<Sessions> getListSessions() {

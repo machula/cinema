@@ -51,9 +51,14 @@ public class MainController {
 	public String main2(Model model) {
 		List<Sessions> sessionList = sessionsService.findAll();
 		for(Sessions sessions: sessionList) {
-			System.out.println(sessions.getId());
-			for(Tickets ticket: sessions.getlistTickets())
-				System.out.println(ticket.getSeat().getSeatRow());
+			System.out.println(sessions.getId() + " + " + sessions.getFilm().getTitle());
+		}
+		List<Films> list = filmsService.findAll();
+		for(Films film: list) {
+			System.out.println(film.getTitle());
+				for(Sessions sessions: film.getListSessions()) {
+					System.out.println(sessions.getId() + " + " + sessions.getFilm().getTitle());
+				}
 		}
 		return "main";
 	}

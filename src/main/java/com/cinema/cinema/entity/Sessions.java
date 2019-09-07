@@ -54,13 +54,14 @@ public class Sessions implements Serializable {
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "Film", referencedColumnName = "ID")
 	private Films film;
+	
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "Hall", referencedColumnName = "ID")
 	private Halls hall;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "ID", referencedColumnName = "Session")
+	@JoinColumn(name = "ID")
 	private List<Tickets> listTickets = new ArrayList<Tickets>();
 
 	public Halls getHall() {
