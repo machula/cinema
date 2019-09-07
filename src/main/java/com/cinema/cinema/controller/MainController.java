@@ -46,5 +46,16 @@ public class MainController {
 //			System.out.println(film.getTitle());
 		return "main";
 	}
+	
+	@GetMapping("/main2")
+	public String main2(Model model) {
+		List<Sessions> sessionList = sessionsService.findAll();
+		for(Sessions sessions: sessionList) {
+			System.out.println(sessions.getId());
+			for(Tickets ticket: sessions.getlistTickets())
+				System.out.println(ticket.getSeat().getSeatRow());
+		}
+		return "main";
+	}
 
 }

@@ -1,13 +1,19 @@
 package com.cinema.cinema.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -31,16 +37,28 @@ public class Films implements Serializable {
 	private Float standartPrice;
 
 	@Column(name = "premier_date")
-	private String premierDate;
+	private Date premierDate;
 
 	@Column(name = "end_date")
-	private String endDate;
+	private Date endDate;
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "ID", referencedColumnName = "Film")
+	private List<Sessions> listSessions = new ArrayList<Sessions>();
 
 	public Films() {
 	}
 
 	public int getId() {
 		return id;
+	}
+
+	public List<Sessions> getListSessions() {
+		return listSessions;
+	}
+
+	public void setListSessions(List<Sessions> listSessions) {
+		this.listSessions = listSessions;
 	}
 
 	public void setId(int id) {
@@ -63,19 +81,19 @@ public class Films implements Serializable {
 		this.standartPrice = standartPrice;
 	}
 
-	public String getPremierDate() {
+	public Date getPremierDate() {
 		return premierDate;
 	}
 
-	public void setPremierDate(String premierDate) {
+	public void setPremierDate(Date premierDate) {
 		this.premierDate = premierDate;
 	}
 
-	public String getEndDate() {
+	public Date getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(String endDate) {
+	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
 

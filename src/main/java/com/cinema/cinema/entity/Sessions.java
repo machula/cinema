@@ -2,18 +2,26 @@ package com.cinema.cinema.entity;
 
 import java.io.Serializable;
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "sessions")
-public class Sessions implements Serializable{
+public class Sessions implements Serializable {
 
 	/**
 	 * 
@@ -24,24 +32,60 @@ public class Sessions implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
 	private int id;
-	
+
 	@Column(name = "date")
 	private Date date;
-	
+
 	@Column(name = "time")
 	private Time time;
-	
+
 	@Column(name = "session_price")
 	private Float sessionPrice;
-	
+
 	@Column(name = "vip_price")
 	private Float vipPrice;
-	
+
 	@Column(name = "free_places")
 	private int freePlaces;
-	
+
 	@Column(name = "amount_cash")
 	private Float amountCash;
+
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "Film", referencedColumnName = "ID")
+	private Films film;
+
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "Hall", referencedColumnName = "ID")
+	private Halls hall;
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "ID", referencedColumnName = "Session")
+	private List<Tickets> listTickets = new ArrayList<Tickets>();
+
+	public Halls getHall() {
+		return hall;
+	}
+
+	public void setHall(Halls hall) {
+		this.hall = hall;
+	}
+
+	public List<Tickets> getlistTickets() {
+		return listTickets;
+	}
+
+	public void setlistTickets(List<Tickets> listTickets) {
+		this.listTickets = listTickets;
+	}
+
+	public Films getFilm() {
+		return film;
+	}
+
+	public void setFilm(Films film) {
+		this.film = film;
+	}
 
 	public int getId() {
 		return id;
@@ -99,11 +143,4 @@ public class Sessions implements Serializable{
 		this.amountCash = amountCash;
 	}
 
-
-	
-	
-
-	
-	
-	
 }

@@ -1,12 +1,18 @@
 package com.cinema.cinema.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -37,6 +43,18 @@ public class Halls implements Serializable {
 
 	@Column(name = "column_number")
 	private int columnNumber;
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "ID", referencedColumnName = "Hall")
+	private List<Sessions> listSessions = new ArrayList<Sessions>();
+
+	public List<Sessions> getListSessions() {
+		return listSessions;
+	}
+
+	public void setListSessions(List<Sessions> listSessions) {
+		this.listSessions = listSessions;
+	}
 
 	public int getId() {
 		return id;
