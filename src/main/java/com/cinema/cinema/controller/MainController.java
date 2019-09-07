@@ -24,7 +24,7 @@ public class MainController {
 
 	@Autowired
 	FilmsService filmsService;
-	
+
 	@Autowired
 	SessionsService sessionsService;
 
@@ -46,19 +46,19 @@ public class MainController {
 //			System.out.println(film.getTitle());
 		return "main";
 	}
-	
+
 	@GetMapping("/main2")
 	public String main2(Model model) {
 		List<Sessions> sessionList = sessionsService.findAll();
-		for(Sessions sessions: sessionList) {
+		for (Sessions sessions : sessionList) {
 			System.out.println(sessions.getId() + " + " + sessions.getFilm().getTitle());
 		}
 		List<Films> list = filmsService.findAll();
-		for(Films film: list) {
+		for (Films film : list) {
 			System.out.println(film.getTitle());
-				for(Sessions sessions: film.getListSessions()) {
-					System.out.println(sessions.getId() + " + " + sessions.getFilm().getTitle());
-				}
+			for (Sessions sessions : film.getListSessions()) {
+				System.out.println(sessions.getId() + " + " + sessions.getFilm().getTitle());
+			}
 		}
 		return "main";
 	}

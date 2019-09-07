@@ -3,31 +3,85 @@
 <head>
 <title>Main page</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<style type="text/css">
+#left {
+	background: #fc0;
+	padding: 20px;
+	width: 25%;
+	margin: 20px;
+}
+
+#center {
+	background: #F5DEB3;
+	padding: 10px;
+	width: 50%;
+	flex: 1;
+	margin: 20px;
+}
+
+#right {
+	background: #FFDAB9;
+	padding: 10px;
+	width: 25%;
+	margin: 20px;
+}
+</style>
+
 </head>
 <body>
 
-	<form action="#" method="post">
-<div class="col-lg-3" th:object="${test}">
+	<div style="display: flex;">
+		<div id="left">
+			<form action="#" th:action="@{getFilm}" method="post">
+				<div align="center" th:object="${test}" style="margin-bottom: 30px;">
 
-    <select class="form-control" id="testOrder" name="testOrder" >
-        <option value="">Select Film for Today</option>
-        <option th:each="test : ${tests}"
-                th:value="${test.id}"
-                th:text="${test.id}+' : '+${test.title}"></option>
-    </select>
-</div>
+					<select class="form-control" id="testOrder" name="films">
+						<option value="">Select Film for Today</option>
+						<option th:each="test : ${tests}" th:value="${test.id}"
+							th:text="${test.id}+' : '+${test.title}"></option>
+					</select>
+				</div>
+			</form>
+			<div align="center" th:object="${seans}">
 
-<div class="col-lg-3" th:object="${seans}">
+				<select class="form-control" id="testOrder" name="seans">
+					<option value="">Select Session</option>
+					<option th:each="seans : ${allSeans}" th:value="${seans.id}"
+						th:text="${seans.id}+' : '+${seans.time}"></option>
+				</select>
+			</div>
 
-    <select class="form-control" id="testOrder" name="testOrder" >
-        <option value="">Select Session </option>
-        <option th:each="seans : ${allSeans}"
-                th:value="${seans.id}"
-                th:text="${seans.id}+' : '+${seans.time}"></option>
-    </select>
-</div>
+		</div>
 
-</form>
+		<div id="center"></div>
 
+		<div id="right">
+
+			<div style="margin: 10px; background: #49D196;">
+				<p>Hall:</p>
+			</div>
+
+			<div style="margin: 10px; background: #49D196;">
+				<p>Your Seats</p>
+			</div>
+
+			<div style="margin: 10px; background: #49D196;">
+				<p>Student</p>
+				<input type="checkbox" value="student"></input>
+			</div>
+
+			<div style="margin: 10px; background: #49D196;">
+				<p>Amount</p>
+			</div>
+
+			<div align="right" style="margin: 10px; background: #49D196;">
+				<button type="submit" value="OK">OK</button>
+			</div>
+
+		</div>
+
+	</div>
+	<!-- footer -->
 </body>
 </html>
