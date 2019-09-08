@@ -24,7 +24,8 @@ import javax.persistence.Table;
 public class Sessions implements Serializable {
 
 	/**
-	 * 
+	 * Так как для студентов есть скидка (или по купону) в процентах Для цены юзаем
+	 * флоат - в инте обрезается немного сумма, а такого бизнес не потерпит :)
 	 */
 	private static final long serialVersionUID = 1L;
 
@@ -54,12 +55,11 @@ public class Sessions implements Serializable {
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "Film", referencedColumnName = "ID")
 	private Films film;
-	
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "Hall", referencedColumnName = "ID")
 	private Halls hall;
-	
+
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "ID")
 	private List<Tickets> listTickets = new ArrayList<Tickets>();

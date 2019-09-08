@@ -41,7 +41,7 @@ public class Films implements Serializable {
 
 	@Column(name = "end_date")
 	private Date endDate;
-	
+
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "ID")
 	private List<Sessions> listSessions = new ArrayList<Sessions>();

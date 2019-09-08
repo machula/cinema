@@ -33,14 +33,22 @@ public class Tickets implements Serializable {
 	@Column(name = "final_price")
 	private Float finalPrice;
 
+	public Tickets() {
+	}
+
+	public Tickets(Float finalPrice, Sessions session, Seats seat) {
+		this.finalPrice = finalPrice;
+		this.session = session;
+		this.seat = seat;
+	}
+
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "Session", referencedColumnName = "ID")
 	private Sessions session;
-	
+
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "Seat", referencedColumnName = "ID")
 	private Seats seat;
-	
 
 	public Seats getSeat() {
 		return seat;
@@ -56,9 +64,6 @@ public class Tickets implements Serializable {
 
 	public void setSession(Sessions session) {
 		this.session = session;
-	}
-
-	public Tickets() {
 	}
 
 	public int getId() {
