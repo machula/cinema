@@ -38,118 +38,134 @@ public class MainController {
 	@Autowired
 	SeatsService seatsService;
 
-	@GetMapping("")
-	public String main() {
-		return "redirect:/main";
-	}
-
 	int sessionId;
 	float price;
 	float amount;
 	List<Tickets> tickets;
 	float vip_price;
 
+	
 	@GetMapping("/main")
 	public String main(Model model) {
 
-		// init film list
+		//init film list
 		List<Films> test = new ArrayList<>();
 		model.addAttribute("test", test);
 		List<Films> tests = filmsService.findDistrFilms();
 		model.addAttribute("tests", tests);
 
-		// init session list
+		//init session list
 		List<Sessions> session = new ArrayList<>();
 		model.addAttribute("seans", session);
 		List<Sessions> sessions = sessionsService.findAll();
 		model.addAttribute("allSeans", sessions);
 
+		model.addAttribute("film", filmA);
+		model.addAttribute("sessionListByFilm", sessionListByFilmA);
+		
+		model.addAttribute("booked", bookedA);
+		model.addAttribute("hall_number", hallNumberA);
+		model.addAttribute("price", price);
+		model.addAttribute("vip_price", vip_price);
+		
+		model.addAttribute("seats", seatsA);
+		model.addAttribute("amount", amount);
+		
 		return "main";
 	}
 
-	@PostMapping("/getSessions")
-	public String getSessions(@RequestParam String films, ModelMap model) {
+	 String filmA = "";
+	 List<Sessions> sessionListByFilmA;
+	
+	
+	@PostMapping("/getSessions") 
+	public String getSessions(@RequestParam String films) {
 		System.out.println(films);
-
-		// TODO выдать сообщения об ошибке если не выбран фильм
+		
+		//TODO выдать сообщения об ошибке если не выбран фильм
 		if (films.equals("null"))
 			return "main";
 
-		// получаем название фильма
-		String film = filmsService.findFilmById(films).get().getTitle();
-		model.addAttribute("film", film);
+		//получаем название фильма
+		filmA = filmsService.findFilmById(films).get().getTitle();
 
-		// получаем список сеансов нужного фильма
+
+	    //получаем список сеансов нужного фильма 
 		List<Sessions> sessionList = sessionsService.findAll();
-		List<Sessions> sessionListByFilm = new ArrayList<Sessions>();
+		sessionListByFilmA = new ArrayList<Sessions>();
 
 		for (Sessions sessions : sessionList) {
 			System.out.println(sessions.getId() + " + " + sessions.getFilm().getId());
 
 			if (sessions.getFilm().getId() == Integer.valueOf(films)) {
-				sessionListByFilm.add(sessions);
+				sessionListByFilmA.add(sessions);
 				System.out.println(sessions.getId());
 			}
 
 		}
 
-		model.addAttribute("sessionListByFilm", sessionListByFilm);
-
-		return "main";
+		
+		return "redirect:/main";
 	}
 
+	 String bookedA = "";
+	 int hallNumberA;
+	
 	@PostMapping("/check")
-	public String check(@RequestParam String seans, ModelMap model) {
+	public String check(@RequestParam String seans) {
 		System.out.println(seans);
-
-		// TODO Сообщение об ошибке если не выбран сеанс
+		
+		//TODO Сообщение об ошибке если не выбран сеанс
 		if (seans.equals("null"))
-			return "main";
+			return "main"; 
 
+		
 		sessionId = Integer.valueOf(seans);
 
 		Sessions cur_ses = sessionsService.findSessionsById(Integer.valueOf(seans)).get();
 
+		/** TODO отрисовка занятых мест
+		*  Можно заюзать jquery 
+		*  В любом случае через js
+		*  Пока что просто выведем как список (одной строкой)
+		*/
+		
+		//Получаем список уже купленных билетов
+		bookedA = seatsService.getAllBookedAsString(cur_ses);
+
+		//определяем зал 
+		hallNumberA = cur_ses.getHall().getNumber();
+		
 		/**
-		 * TODO отрисовка занятых мест Можно заюзать jquery В любом случае через js Пока
-		 * что просто выведем как список (одной строкой)
+		 * Если значение для определенного сеанса нужно поменять
+		 * Например на утренние сеансы или вечерние 
+		 * То меняем session_price из табл sessions
+		 * Если специальной цены нет - подтягиваем стандартную цену из табл films
 		 */
-
-		// Получаем список уже купленных билетов
-		String booked = seatsService.getAllBookedAsString(cur_ses);
-		model.addAttribute("booked", booked);
-
-		// определяем зал
-		int hall_number = cur_ses.getHall().getNumber();
-		model.addAttribute("hall_number", hall_number);
-
-		/**
-		 * Если значение для определенного сеанса нужно поменять Например на утренние
-		 * сеансы или вечерние То меняем session_price из табл sessions Если специальной
-		 * цены нет - подтягиваем стандартную цену из табл films
-		 */
-
-		if (cur_ses.getSessionPrice() == 0)
+		
+		if (cur_ses.getSessionPrice() == 0) 
 			price = cur_ses.getFilm().getStandartPrice();
 		else
 			price = cur_ses.getSessionPrice();
 
-		model.addAttribute("price", price);
+		
 
-		// если вип не указано то считать все обычные
-		// TODO перенести это в табл halls
+		//если вип не указано то считать все обычные
+		//TODO перенести это в табл halls 
 		if (cur_ses.getVipPrice() == 0)
 			vip_price = price;
-		else
+		else 
 			vip_price = cur_ses.getVipPrice();
+	
+		
 
-		model.addAttribute("vip_price", vip_price);
-
-		return "main";
+		return "redirect:/main";
 	}
 
+	String seatsA = "";
+	
 	@RequestMapping(value = "/selectSeats", method = RequestMethod.GET)
-	public String selectSeats(HttpServletRequest request, Model model) {
+	public String selectSeats(HttpServletRequest request) {
 
 		tickets = new ArrayList<Tickets>();
 
@@ -163,59 +179,70 @@ public class MainController {
 		int vipCount = 0;
 		float buffPrice = price;
 
-		String seats = "";
+		
 
-		// количество выбранных ситс
+		//количество выбранных ситс
 		long count = st.length;
 
 		for (int i = 0; i < count; i++) {
-
-			// смотрим какой ряд
+			
+			//смотрим какой ряд
 			String ss = String.valueOf(st[i].charAt(1));
 			int row = Integer.valueOf(ss);
-			// если последний ряд - цена выше
+			//если последний ряд - цена выше
 			if (row == 7) {
 				buffPrice = price;
 				price = vip_price;
 				vipCount++;
 			}
 
-			// создаем новый тикет
-			ticketsService.newTicket(price, sessionsService.findSessionsById(sessionId).get(),
+			//создаем новый тикет
+			ticketsService.newTicket(price, 
+					sessionsService.findSessionsById(sessionId).get(),
 					seatsService.parseSeats(st[i]));
 
 			price = buffPrice;
 
-			// формируем строку с выбраными ситс
-			seats += (i < count - 1) ? (st[i] + ", ") : (st[i]);
+			//формируем строку с выбраными ситс
+			seatsA += (i < count - 1) ? (st[i] + ", ") : (st[i]);
 
 		}
 
-		model.addAttribute("seats", seats);
-
 		amount = ((count - vipCount) * price) + (vipCount * vip_price);
 
-		model.addAttribute("amount", amount);
-
-		return "main";
+		return "redirect:/main";
 	}
 
 	@PostMapping("/passTickets")
 	public String passTickets(Model model) {
 
-		// TODO Вынести в отдельную табличку все бухгалтерские функции
-
+		//TODO Вынести в отдельную табличку все бухгалтерские функции
+		
 		sessionsService.addAmount(sessionId, amount);
 
 		return "redirect:/";
 	}
-
-	@GetMapping("/main2") // TEST
+	
+	@GetMapping("")
+	public String main() {
+		
+		filmA ="";
+		bookedA = "";
+		hallNumberA = 0;
+		price = 0;
+		vip_price = 0;
+		seatsA = "";
+		amount = 0;
+		
+		return "redirect:/main";
+	}
+	
+	@GetMapping("/main2") //TEST
 	public String main2(Model model) {
 		List<Films> list = filmsService.findAll();
-		for (Films film : list)
+		for(Films film: list)
 			System.out.println(film.getTitle());
-
+		
 		List<Sessions> sessionList = sessionsService.findAll();
 		for (Sessions sessions : sessionList) {
 			System.out.println(sessions.getId() + " + " + sessions.getFilm().getTitle());
@@ -229,5 +256,5 @@ public class MainController {
 		}
 		return "main";
 	}
-
+	
 }

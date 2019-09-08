@@ -29,6 +29,12 @@ public class Sessions implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	
+	
+	public Sessions() {
+		
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID")
